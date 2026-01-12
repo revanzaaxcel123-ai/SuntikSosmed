@@ -118,7 +118,7 @@
     }
     .logo-circle img{width:97%;height:97%;object-fit:contain;border-radius:50%;}
 
-    .headline-wrap{text-align:center;margin-bottom:18px;}
+    .headline-wrap{text-align:center;margin-bottom:14px;}
     .badge{
       display:inline-flex;align-items:center;gap:6px;
       padding:4px 10px;border-radius:999px;
@@ -141,7 +141,7 @@
     /* highlight info */
     .info{
       margin-top:16px;
-      padding:14px 14px;
+      padding:16px 14px;
       border-radius:22px;
       background:rgba(17,17,24,0.55);
       border:1px solid rgba(255,255,255,0.06);
@@ -152,7 +152,7 @@
       letter-spacing:.22em;
       opacity:.65;
       text-transform:uppercase;
-      margin-bottom:10px;
+      margin-bottom:12px;
     }
     .bullets{margin:0;padding:0;list-style:none;display:grid;gap:10px;}
     .bullet{
@@ -169,54 +169,6 @@
     }
     .muted{color:var(--text-muted);}
 
-    /* Buttons */
-    .link-btn{
-      width:100%;
-      border:none;outline:none;text-decoration:none;
-      display:flex;justify-content:flex-start;align-items:center;
-      padding:12px 16px;border-radius:var(--radius-btn);
-      cursor:pointer;background:#101018;border:1px solid var(--border-soft);
-      color:var(--text);
-      transition:transform .1s ease-out,box-shadow .12s ease-out,border-color .12s ease-out,background .12s ease-out;
-      margin-top:10px;
-    }
-    .link-btn:hover{
-      transform:translateY(-1px);
-      box-shadow:0 16px 38px rgba(0,0,0,0.9);
-      border-color:rgba(247,212,106,0.6);
-      background:linear-gradient(135deg,#181821,#1d1d25);
-    }
-    .link-btn-primary{
-      background:linear-gradient(135deg,#2b2412,#141419);
-      border-color:rgba(247,212,106,0.6);
-      box-shadow:0 12px 30px rgba(0,0,0,0.9);
-      animation:pulse 2.8s infinite ease-in-out;
-    }
-    .link-btn-primary:hover{background:linear-gradient(135deg,#3c3217,#171722);}
-    @keyframes pulse{
-      0%{box-shadow:0 0 0 rgba(247,212,106,0);}
-      50%{box-shadow:0 0 18px rgba(247,212,106,0.35);}
-      100%{box-shadow:0 0 0 rgba(247,212,106,0);}
-    }
-
-    .btn-content{display:inline-flex;align-items:center;gap:10px;}
-    .btn-icon{
-      width:32px;height:32px;border-radius:999px;
-      background:rgba(11,14,40,0.95);
-      display:flex;align-items:center;justify-content:center;
-      color:#ffffff;flex:0 0 auto;
-    }
-    .btn-icon svg{width:18px;height:18px;display:block;}
-    .btn-text{font-size:.96rem;font-weight:500;letter-spacing:.01em;}
-    .btn-pill{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:2px 8px;border-radius:999px;
-      background:rgba(0,0,0,0.4);
-      border:1px solid rgba(247,212,106,0.6);
-      font-size:.7rem;margin-left:6px;color:var(--accent-strong);
-      white-space:nowrap;
-    }
-
     /* price note */
     .price-note{
       margin-top:14px;
@@ -232,7 +184,7 @@
 
     /* footer */
     .footer-note{
-      margin-top:18px;
+      margin-top:16px;
       text-align:center;
       font-size:.82rem;
       color:var(--text-muted);
@@ -241,7 +193,6 @@
 
     @media(max-width:480px){
       .headline-wrap h1{font-size:1.35rem;}
-      .btn-text{font-size:.9rem;}
     }
   </style>
 </head>
@@ -256,109 +207,41 @@
 
   <main class="shell">
     <section class="card">
+      <!-- Logo tetap -->
       <div class="logo-wrap">
         <div class="logo-circle">
           <img src="logo.png" alt="Logo VanzShop.com">
         </div>
       </div>
 
+      <!-- Headline + copywriting -->
       <div class="headline-wrap">
         <div class="badge">🚀 Layanan aktif 24/7</div>
         <h1>Suntik Sosmed — Fast, Aman, Bergaransi</h1>
         <p class="sub">
-          Naikin <b>Followers</b>, <b>Likes</b>, <b>Views</b>, <b>Comments</b>, sampai <b>Watch Time</b> dengan proses yang jelas & cepat.
+          Naikin <b>Followers</b>, <b>Likes</b>, <b>Views</b>, <b>Reels/Story Viewer</b>, <b>Comments</b>,
+          sampai <b>Watch Time</b> dengan proses yang jelas & cepat.
           Cocok buat personal brand, UMKM, konten kreator, sampai toko online.
+          <br><br>
+          Support platform: <b>TikTok</b>, <b>Instagram</b>, <b>YouTube</b>, <b>Telegram</b>, <b>Twitter/X</b>.
         </p>
       </div>
 
-      <!-- CTA utama -->
-      <a class="link-btn link-btn-primary" href="#" target="_blank" rel="noopener">
-        <span class="btn-content">
-          <span class="btn-icon">
-            <!-- cart -->
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 4h2l2 11h10l2-7H8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="10" cy="18.5" r="1.3" fill="currentColor"/>
-              <circle cx="17" cy="18.5" r="1.3" fill="currentColor"/>
-            </svg>
-          </span>
-          <span class="btn-text">
-            Order Sekarang (24/7)
-            <span class="btn-pill">Fast Respon</span>
-          </span>
-        </span>
-      </a>
-
-      <a class="link-btn" href="#" target="_blank" rel="noopener">
-        <span class="btn-content">
-          <span class="btn-icon">
-            <!-- tag/price -->
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M20 13l-7 7-10-10V3h7l10 10z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-              <circle cx="7.5" cy="7.5" r="1.2" fill="currentColor"/>
-            </svg>
-          </span>
-          <span class="btn-text">Cek Harga & List Paket</span>
-        </span>
-      </a>
-
-      <a class="link-btn" href="#" target="_blank" rel="noopener">
-        <span class="btn-content">
-          <span class="btn-icon">
-            <!-- wa -->
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 4a7 7 0 0 0-6.06 10.5L5 20l3.7-1.88A7 7 0 1 0 12 4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-              <path d="M10.6 9.1l.4 1.3a1.2 1.2 0 0 1-.2 1l-.3.4a3.8 3.8 0 0 0 1.9 1.9l.4-.3a1.2 1.2 0 0 1 1-.2l1.3.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-          <span class="btn-text">Chat Admin (WhatsApp)</span>
-        </span>
-      </a>
-
-      <!-- Benefit block -->
+      <!-- Info saja (tanpa tombol) -->
       <section class="info">
         <div class="info-title">Kenapa di VanzShop?</div>
         <ul class="bullets">
-          <li class="bullet"><span class="dot"></span>Proses cepat & update jelas. Kalau ada kendala, kita bantu sampai beres.</li>
-          <li class="bullet"><span class="dot"></span>Rekomendasi paket sesuai kebutuhan: aman buat growth bertahap atau boost campaign.</li>
-          <li class="bullet"><span class="dot"></span>Garansi sesuai ketentuan layanan — bukan lepas tangan habis order.</li>
-          <li class="bullet"><span class="dot"></span>Support 24/7: tanya dulu juga boleh, biar gak salah pilih paket.</li>
+          <li class="bullet"><span class="dot"></span>Proses cepat & update jelas. Kalau ada kendala, dibantu sampai beres.</li>
+          <li class="bullet"><span class="dot"></span>Paket bisa disesuaiin: growth natural bertahap atau boost campaign.</li>
+          <li class="bullet"><span class="dot"></span>Aman & bergaransi sesuai ketentuan layanan (bukan lepas tangan).</li>
+          <li class="bullet"><span class="dot"></span>Support 24/7: konsultasi dulu boleh biar gak salah pilih.</li>
         </ul>
 
         <div class="price-note">
-          <b>Harga:</b> Mengacu ke BuzzerPanel + <b>markup 20%</b>.
-          <span class="muted">Tujuannya biar ada biaya operasional, monitoring, dan support fast confirm.</span>
+          <b>Harga:</b> transparan & konsisten — mengacu ke price list internal + <b>markup 20%</b>.
+          <span class="muted">Tujuannya untuk operasional, monitoring, dan fast support.</span>
         </div>
       </section>
-
-      <!-- Secondary links -->
-      <a class="link-btn" href="#" target="_blank" rel="noopener">
-        <span class="btn-content">
-          <span class="btn-icon">
-            <!-- shield -->
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 3l8 4v6c0 5-3.4 8.6-8 9-4.6-.4-8-4-8-9V7l8-4z"
-                    fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-              <path d="M9.5 12.2l1.6 1.6 3.7-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-          <span class="btn-text">Ketentuan Garansi</span>
-        </span>
-      </a>
-
-      <a class="link-btn" href="#" target="_blank" rel="noopener">
-        <span class="btn-content">
-          <span class="btn-icon">
-            <!-- faq -->
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M5 6h14v8a3 3 0 0 1-3 3H10l-3 3v-3H8a3 3 0 0 1-3-3V6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-              <path d="M11 10a2 2 0 1 1 2 2v1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              <circle cx="13" cy="15.5" r="0.9" fill="currentColor"/>
-            </svg>
-          </span>
-          <span class="btn-text">FAQ</span>
-        </span>
-      </a>
 
       <div class="footer-note">
         © 2025 VanzShop.com · 🔒 Aman · ⚡ Cepat · 🛡️ Bergaransi
