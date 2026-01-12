@@ -28,68 +28,114 @@ body{
   display:flex;
   justify-content:center;
   min-height:100vh;
+  overflow-x:hidden;
 }
 
-/* background grid */
-body::before{
-  content:"";
+/* =========================
+   BACKGROUND (PERSIS KODE LU)
+========================= */
+.page-bg{
   position:fixed;
   inset:0;
-  background:
-    linear-gradient(to right,rgba(255,255,255,.04) 1px,transparent 1px),
-    linear-gradient(to bottom,rgba(255,255,255,.04) 1px,transparent 1px);
-  background-size:64px 64px;
-  opacity:.5;
+  z-index:0;
   pointer-events:none;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  opacity:.55;
+}
+.warm{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  background:
+    radial-gradient(circle at 78% 40%,
+      rgba(247,212,106,0.18) 0%,
+      rgba(247,212,106,0.08) 18%,
+      rgba(0,0,0,0) 55%);
+  mix-blend-mode:screen;
+  opacity:.9;
+}
+.orb{
+  position:fixed;
+  border-radius:999px;
+  background:radial-gradient(circle at 30% 20%, rgba(255,255,255,0.09), transparent 70%);
+  opacity:.6;
+  animation:floatOrb 24s ease-in-out infinite alternate;
+  pointer-events:none;
+  z-index:0;
+}
+.orb-1{width:220px;height:220px;left:7%;top:62%;animation-delay:-4s;}
+.orb-2{width:170px;height:170px;left:28%;top:30%;animation-delay:-12s;opacity:.52;}
+.orb-3{width:280px;height:280px;right:12%;top:18%;animation-delay:-18s;opacity:.58;}
+.orb-4{width:260px;height:260px;right:10%;bottom:-60px;animation-delay:-10s;opacity:.54;}
+
+@keyframes floatOrb{
+  0%  {transform:translate3d(0,0,0) scale(1);opacity:.45;}
+  40% {transform:translate3d(18px,-26px,0) scale(1.05);opacity:.8;}
+  100%{transform:translate3d(-16px,-10px,0) scale(1.02);opacity:.55;}
 }
 
+/* =========================
+   LAYOUT (ASLI LU)
+========================= */
 .wrapper{
   width:100%;
   max-width:560px;
   padding:28px 18px 70px;
+  position:relative; /* biar di atas background */
+  z-index:1;         /* biar di atas background */
 }
 
 .card{
   background:var(--card);
   border-radius:var(--radius);
-  padding:22px;
+  padding:22px 22px 26px;
   border:1px solid var(--border);
   box-shadow:0 30px 80px rgba(0,0,0,.9);
 }
 
 /* =========================
-   PORTRAIT SLIDER
+   SLIDER (CARD CAROUSEL) - PORTRAIT
 ========================= */
 .slider{
-  margin-bottom:18px;
+  position:relative;
+  margin:0 0 16px;
+  padding:6px 0 10px;
 }
 
 .viewport{
   overflow:hidden;
   border-radius:22px;
   border:1px solid var(--border);
-  background:rgba(0,0,0,.2);
-  box-shadow:0 20px 60px rgba(0,0,0,.6);
+  background:rgba(0,0,0,.18);
+  box-shadow:0 20px 60px rgba(0,0,0,.55);
 }
 
 .track{
   display:flex;
   gap:16px;
   padding:16px;
-  transition:transform .6s cubic-bezier(.22,.75,.2,1);
+  will-change:transform;
+  transform:translate3d(0,0,0);
+  transition:transform 650ms cubic-bezier(.22,.75,.2,1);
+  touch-action:pan-y;
 }
 
 .slide{
   flex:0 0 62%;
-  aspect-ratio:4/5;        /* 🔥 PORTRAIT */
+  aspect-ratio:4/5;         /* PORTRAIT */
   border-radius:18px;
   overflow:hidden;
+  position:relative;
   background:#0b0b10;
   border:1px solid rgba(255,255,255,.08);
-  box-shadow:0 18px 50px rgba(0,0,0,.75);
-  transform:scale(.9);
+  box-shadow:0 18px 55px rgba(0,0,0,.7);
+  transform:scale(.90);
   opacity:.65;
-  transition:all .6s cubic-bezier(.22,.75,.2,1);
+  transition:transform 650ms cubic-bezier(.22,.75,.2,1), opacity 650ms cubic-bezier(.22,.75,.2,1);
 }
 
 .slide.is-active{
@@ -100,8 +146,16 @@ body::before{
 .slide img{
   width:100%;
   height:100%;
-  object-fit:cover;
   display:block;
+  object-fit:cover;
+}
+
+.slide::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 20% 10%, rgba(247,212,106,.18), transparent 55%);
+  pointer-events:none;
 }
 
 /* arrows */
@@ -109,19 +163,28 @@ body::before{
   position:absolute;
   top:50%;
   transform:translateY(-50%);
-  width:42px;height:42px;
-  border-radius:50%;
+  width:44px;height:44px;
+  border-radius:999px;
+  border:1px solid rgba(247,212,106,.35);
   background:rgba(15,15,22,.75);
-  border:1px solid rgba(247,212,106,.4);
+  backdrop-filter: blur(8px);
   color:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
+  user-select:none;
+  transition:transform .12s ease, border-color .12s ease, background .12s ease;
 }
+.arrow:hover{
+  transform:translateY(-50%) scale(1.03);
+  border-color:rgba(247,212,106,.65);
+  background:rgba(20,20,30,.82);
+}
+.arrow:active{ transform:translateY(-50%) scale(.98); }
 
-.arrow.left{left:10px}
-.arrow.right{right:10px}
+.arrow.left{ left:10px; }
+.arrow.right{ right:10px; }
 
 /* dots */
 .dots{
@@ -131,18 +194,30 @@ body::before{
   margin-top:10px;
 }
 .dot{
-  width:7px;height:7px;border-radius:50%;
-  background:rgba(255,255,255,.25);
+  width:7px;height:7px;border-radius:999px;
+  background:rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.12);
+  cursor:pointer;
+  transition:transform .15s ease, background .15s ease, border-color .15s ease;
 }
 .dot.is-active{
-  background:var(--accent);
+  background:rgba(247,212,106,.95);
+  border-color:rgba(247,212,106,.55);
+  transform:scale(1.15);
 }
 
-/* LOGO */
+/* responsive slider */
+@media(max-width:480px){
+  .slide{ flex-basis:72%; } /* biar enak di hp */
+}
+
+/* =========================
+   LOGO
+========================= */
 .logo-wrap{
   display:flex;
   justify-content:center;
-  margin:16px 0;
+  margin:8px 0 16px;
 }
 .logo{
   width:92px;height:92px;border-radius:50%;
@@ -151,12 +226,11 @@ body::before{
   border:2px solid rgba(247,212,106,.6);
 }
 .logo img{
-  width:90%;height:90%;
-  object-fit:contain;border-radius:50%;
+  width:90%;height:90%;object-fit:contain;border-radius:50%;
 }
 
 /* header */
-.header{text-align:center}
+.header{text-align:center;margin-bottom:20px}
 .badge{
   display:inline-block;
   padding:4px 10px;
@@ -168,6 +242,7 @@ body::before{
 h1{
   margin:10px 0 8px;
   font-size:1.45rem;
+  line-height:1.2;
   color:var(--accent);
 }
 .sub{
@@ -176,41 +251,47 @@ h1{
   line-height:1.6;
 }
 
-/* benefit */
+/* benefit vertical */
 .benefit-stack{
-  margin-top:20px;
+  margin-top:22px;
   display:flex;
   flex-direction:column;
   gap:14px;
 }
+
 .benefit{
-  padding:16px;
+  padding:16px 16px;
   border-radius:20px;
   background:rgba(17,17,24,.6);
   border:1px solid var(--border);
 }
+
 .benefit h3{
   margin:0 0 6px;
-  color:var(--accent);
   font-size:1rem;
+  color:var(--accent);
 }
+
 .benefit p{
   margin:0;
   font-size:.9rem;
-  color:rgba(255,255,255,.85);
+  line-height:1.55;
+  color:rgba(255,255,255,.82);
 }
 
 /* CTA */
 .cta{
   margin-top:22px;
   display:block;
-  padding:14px;
+  text-decoration:none;
+  padding:14px 16px;
   border-radius:20px;
   background:linear-gradient(135deg,#2b2412,#141419);
   border:1px solid rgba(247,212,106,.6);
   color:#fff;
   font-weight:600;
   text-align:center;
+  box-shadow:0 16px 40px rgba(0,0,0,.9);
 }
 .cta span{
   display:block;
@@ -219,8 +300,9 @@ h1{
   color:var(--accent);
 }
 
+/* footer */
 .footer{
-  margin-top:16px;
+  margin-top:18px;
   text-align:center;
   font-size:.8rem;
   color:var(--muted);
@@ -229,93 +311,255 @@ h1{
 </head>
 
 <body>
-<div class="wrapper">
-  <div class="card">
+  <!-- BACKGROUND LAYERS -->
+  <div class="page-bg"></div>
+  <div class="warm"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="orb orb-4"></div>
 
-    <!-- SLIDER -->
-    <section class="slider" id="slider">
-      <div class="viewport">
-        <div class="track" id="track">
-          <div class="slide"><img src="banner-1.jpg"></div>
-          <div class="slide"><img src="banner-2.jpg"></div>
-          <div class="slide"><img src="banner-3.jpg"></div>
-          <div class="slide"><img src="banner-4.jpg"></div>
+  <div class="wrapper">
+    <div class="card">
+
+      <!-- SLIDER 4 BANNER (ABOVE LOGO)
+           rename images:
+           banner-1.jpg, banner-2.jpg, banner-3.jpg, banner-4.jpg
+      -->
+      <section class="slider" id="bannerSlider">
+        <div class="viewport">
+          <div class="track" id="track">
+            <div class="slide"><img src="banner-1.jpg" alt="Banner 1"></div>
+            <div class="slide"><img src="banner-2.jpg" alt="Banner 2"></div>
+            <div class="slide"><img src="banner-3.jpg" alt="Banner 3"></div>
+            <div class="slide"><img src="banner-4.jpg" alt="Banner 4"></div>
+          </div>
+        </div>
+
+        <div class="arrow left" id="prev" aria-label="Sebelumnya">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="arrow right" id="next" aria-label="Berikutnya">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <div class="dots" id="dots" aria-label="Navigasi banner"></div>
+      </section>
+
+      <!-- LOGO / FOTO PROFIL -->
+      <div class="logo-wrap">
+        <div class="logo">
+          <img src="logo.png" alt="VanzShop">
         </div>
       </div>
-      <div class="dots" id="dots"></div>
-    </section>
 
-    <!-- LOGO -->
-    <div class="logo-wrap">
-      <div class="logo">
-        <img src="logo.png">
+      <div class="header">
+        <div class="badge">🚀 Layanan Aktif 24/7</div>
+        <h1>Suntik Sosmed — Aman, Cepat, Bergaransi</h1>
+        <p class="sub">
+          Naikin <b>Followers</b>, <b>Likes</b>, <b>Views</b>, <b>Reactions</b>,
+          sampai <b>Watch Time</b> untuk <b>TikTok, Instagram, Telegram, Twitter, & YouTube</b>.
+          Cocok buat personal brand, UMKM, kreator, dan bisnis online.
+        </p>
       </div>
-    </div>
 
-    <div class="header">
-      <div class="badge">🚀 Layanan Aktif 24/7</div>
-      <h1>Suntik Sosmed — Aman, Cepat, Bergaransi</h1>
-      <p class="sub">
-        Followers, Likes, Views, Reactions & Watch Time untuk TikTok, Instagram,
-        Telegram, Twitter, dan YouTube.
-      </p>
-    </div>
+      <div class="benefit-stack">
+        <div class="benefit">
+          <h3>👑 Naik Kelas & Gengsi Akun</h3>
+          <p>
+            Akun dengan angka yang solid otomatis kelihatan lebih <b>niat, profesional, dan terpercaya</b>.
+            Orang lebih pede follow, nonton, dan engage karena secara visual terlihat “akun besar”.
+          </p>
+        </div>
 
-    <div class="benefit-stack">
-      <div class="benefit">
-        <h3>👑 Naik Kelas & Gengsi Akun</h3>
-        <p>Akun terlihat besar, profesional, dan bikin orang lebih pede follow & engage.</p>
+        <div class="benefit">
+          <h3>🔥 Social Proof = Trust Cepat</h3>
+          <p>
+            Konten yang rame bikin audiens mikir: <i>“Oh ini legit.”</i>
+            Secara psikologi, orang jauh lebih gampang ikut like, komen,
+            dan follow kalau sudah ada interaksi sebelumnya.
+          </p>
+        </div>
+
+        <div class="benefit">
+          <h3>🚀 Dorong Algoritma & Momentum</h3>
+          <p>
+            Engagement awal bantu konten lebih “meyakinkan” di mata algoritma.
+            Ideal buat <b>launch konten baru</b>, <b>boost campaign</b>,
+            atau ngejar exposure lebih luas.
+          </p>
+        </div>
       </div>
-      <div class="benefit">
-        <h3>🔥 Social Proof = Trust Cepat</h3>
-        <p>Konten rame bikin audiens mikir “ini legit” dan ikut interaksi.</p>
+
+      <a class="cta"
+         href="https://chat.whatsapp.com/DQ2PsowpGt5FxhQDAS2sAz?mode=r_t"
+         target="_blank" rel="noopener">
+        Order Sekarang via Grup WhatsApp
+        <span>Join grup → pilih layanan → langsung gas</span>
+      </a>
+
+      <div class="footer">
+        © 2025 VanzShop.com · 🔒 Aman · ⚡ Cepat · 🛡️ Bergaransi
       </div>
-      <div class="benefit">
-        <h3>🚀 Dorong Algoritma</h3>
-        <p>Engagement awal bantu konten lebih cepat naik exposure.</p>
-      </div>
+
     </div>
-
-    <a class="cta"
-       href="https://chat.whatsapp.com/DQ2PsowpGt5FxhQDAS2sAz?mode=r_t"
-       target="_blank">
-      Order Sekarang via Grup WhatsApp
-      <span>Join grup → pilih layanan → langsung gas</span>
-    </a>
-
-    <div class="footer">
-      © 2025 VanzShop.com · 🔒 Aman · ⚡ Cepat · 🛡️ Bergaransi
-    </div>
-
   </div>
-</div>
 
 <script>
-const track = document.getElementById("track");
-const slides = [...track.children];
-const dotsWrap = document.getElementById("dots");
-let index = 0;
+(() => {
+  const root = document.getElementById("bannerSlider");
+  const track = document.getElementById("track");
+  const slides = Array.from(track.children);
+  const prevBtn = document.getElementById("prev");
+  const nextBtn = document.getElementById("next");
+  const dotsWrap = document.getElementById("dots");
 
-slides.forEach((_,i)=>{
-  const d=document.createElement("div");
-  d.className="dot";
-  d.onclick=()=>go(i);
-  dotsWrap.appendChild(d);
-});
+  const originalCount = slides.length; // 4
+  let index = 0;
+  let slideWidth = 0;
+  let gap = 16;
+  let isDragging = false;
+  let startX = 0;
+  let currentX = 0;
+  let baseTranslate = 0;
+  let raf = null;
 
-const dots=[...dotsWrap.children];
+  const firstClone = slides[0].cloneNode(true);
+  const lastClone  = slides[originalCount - 1].cloneNode(true);
+  track.insertBefore(lastClone, track.firstChild);
+  track.appendChild(firstClone);
 
-function go(i){
-  index=i;
-  track.style.transform=`translateX(${-i*(slides[0].offsetWidth+16)}px)`;
-  slides.forEach(s=>s.classList.remove("is-active"));
-  slides[i].classList.add("is-active");
-  dots.forEach(d=>d.classList.remove("is-active"));
-  dots[i].classList.add("is-active");
-}
+  const allSlides = Array.from(track.children);
 
-go(0);
-setInterval(()=>go((index+1)%slides.length),3500);
+  for (let i = 0; i < originalCount; i++) {
+    const d = document.createElement("button");
+    d.className = "dot";
+    d.type = "button";
+    d.addEventListener("click", () => goTo(i));
+    dotsWrap.appendChild(d);
+  }
+  const dots = Array.from(dotsWrap.children);
+
+  function readGap() {
+    const cs = getComputedStyle(track);
+    const g = parseFloat(cs.gap || "16");
+    return Number.isFinite(g) ? g : 16;
+  }
+
+  function measure() {
+    gap = readGap();
+    const s = allSlides[1];
+    slideWidth = s.getBoundingClientRect().width;
+  }
+
+  function setActiveClasses() {
+    allSlides.forEach(s => s.classList.remove("is-active"));
+    const active = allSlides[index + 1];
+    if (active) active.classList.add("is-active");
+
+    dots.forEach(d => d.classList.remove("is-active"));
+    if (dots[index]) dots[index].classList.add("is-active");
+  }
+
+  function translateTo(idx, withAnim = true) {
+    const offsetIndex = idx + 1;
+    baseTranslate = -offsetIndex * (slideWidth + gap);
+    track.style.transition = withAnim
+      ? "transform 650ms cubic-bezier(.22,.75,.2,1)"
+      : "none";
+    track.style.transform = `translate3d(${baseTranslate}px,0,0)`;
+    setActiveClasses();
+  }
+
+  function goTo(idx) {
+    index = (idx + originalCount) % originalCount;
+    translateTo(index, true);
+  }
+
+  function next() { goTo(index + 1); }
+  function prev() { goTo(index - 1); }
+
+  function pointerDown(e) {
+    isDragging = true;
+    startX = (e.touches ? e.touches[0].clientX : e.clientX);
+    currentX = startX;
+    track.style.transition = "none";
+    cancelAnimationFrame(raf);
+  }
+
+  function pointerMove(e) {
+    if (!isDragging) return;
+    currentX = (e.touches ? e.touches[0].clientX : e.clientX);
+    const dx = currentX - startX;
+
+    raf = requestAnimationFrame(() => {
+      track.style.transform = `translate3d(${baseTranslate + dx}px,0,0)`;
+    });
+  }
+
+  function pointerUp() {
+    if (!isDragging) return;
+    isDragging = false;
+
+    const dx = currentX - startX;
+    const threshold = Math.min(90, slideWidth * 0.18);
+
+    if (dx < -threshold) index += 1;
+    else if (dx > threshold) index -= 1;
+
+    translateTo(index, true);
+
+    setTimeout(() => {
+      if (index < 0) { index = originalCount - 1; translateTo(index, false); }
+      if (index >= originalCount) { index = 0; translateTo(index, false); }
+    }, 720);
+  }
+
+  let timer = null;
+  const AUTOPLAY_MS = 3200;
+
+  function startAuto() {
+    stopAuto();
+    timer = setInterval(() => next(), AUTOPLAY_MS);
+  }
+  function stopAuto() {
+    if (timer) clearInterval(timer);
+    timer = null;
+  }
+
+  prevBtn.addEventListener("click", () => { prev(); startAuto(); });
+  nextBtn.addEventListener("click", () => { next(); startAuto(); });
+
+  const viewport = root.querySelector(".viewport");
+  viewport.addEventListener("mousedown", pointerDown);
+  window.addEventListener("mousemove", pointerMove);
+  window.addEventListener("mouseup", pointerUp);
+
+  viewport.addEventListener("touchstart", pointerDown, {passive:true});
+  viewport.addEventListener("touchmove", pointerMove, {passive:true});
+  viewport.addEventListener("touchend", pointerUp);
+
+  root.addEventListener("mouseenter", stopAuto);
+  root.addEventListener("mouseleave", startAuto);
+
+  function init() {
+    measure();
+    translateTo(index, false);
+    setTimeout(() => translateTo(index, true), 60);
+    startAuto();
+  }
+
+  window.addEventListener("resize", () => {
+    measure();
+    translateTo(index, false);
+  });
+
+  setTimeout(init, 200);
+})();
 </script>
 
 </body>
