@@ -46,23 +46,141 @@ body::before{
 .wrapper{
   width:100%;
   max-width:560px;
-  padding:36px 18px 70px;
+  padding:28px 18px 70px;
   position:relative;
 }
 
 .card{
   background:var(--card);
   border-radius:var(--radius);
-  padding:28px 22px 26px;
+  padding:22px 22px 26px;
   border:1px solid var(--border);
   box-shadow:0 30px 80px rgba(0,0,0,.9);
 }
 
-/* logo */
+/* =========================
+   SLIDER (CARD CAROUSEL)
+========================= */
+.slider{
+  position:relative;
+  margin:0 0 16px;
+  padding:6px 0 10px;
+}
+
+.viewport{
+  overflow:hidden;
+  border-radius:22px;
+  border:1px solid var(--border);
+  background:rgba(0,0,0,.18);
+  box-shadow:0 20px 60px rgba(0,0,0,.55);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+}
+
+.track{
+  display:flex;
+  gap:14px;
+  padding:14px;
+  will-change:transform;
+  transform:translate3d(0,0,0);
+  transition:transform 650ms cubic-bezier(.22,.75,.2,1);
+  touch-action:pan-y;
+}
+
+.slide{
+  flex:0 0 78%;
+  border-radius:18px;
+  overflow:hidden;
+  position:relative;
+  background:#0b0b10;
+  border:1px solid rgba(255,255,255,.06);
+  box-shadow:0 18px 55px rgba(0,0,0,.7);
+  transform:scale(.94);
+  opacity:.75;
+  transition:transform 650ms cubic-bezier(.22,.75,.2,1), opacity 650ms cubic-bezier(.22,.75,.2,1);
+}
+
+.slide.is-active{
+  transform:scale(1);
+  opacity:1;
+}
+
+.slide img{
+  width:100%;
+  height:160px;
+  display:block;
+  object-fit:cover;
+}
+
+.slide::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 20% 10%, rgba(247,212,106,.18), transparent 55%);
+  pointer-events:none;
+}
+
+/* arrows */
+.arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:44px;height:44px;
+  border-radius:999px;
+  border:1px solid rgba(247,212,106,.35);
+  background:rgba(15,15,22,.75);
+  backdrop-filter: blur(8px);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  user-select:none;
+  transition:transform .12s ease, border-color .12s ease, background .12s ease;
+}
+.arrow:hover{
+  transform:translateY(-50%) scale(1.03);
+  border-color:rgba(247,212,106,.65);
+  background:rgba(20,20,30,.82);
+}
+.arrow:active{ transform:translateY(-50%) scale(.98); }
+
+.arrow.left{ left:10px; }
+.arrow.right{ right:10px; }
+
+/* dots */
+.dots{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  margin-top:10px;
+}
+.dot{
+  width:7px;height:7px;border-radius:999px;
+  background:rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.12);
+  cursor:pointer;
+  transition:transform .15s ease, background .15s ease, border-color .15s ease;
+}
+.dot.is-active{
+  background:rgba(247,212,106,.95);
+  border-color:rgba(247,212,106,.55);
+  transform:scale(1.15);
+}
+
+/* responsive slider */
+@media(max-width:480px){
+  .slide img{ height:150px; }
+  .slide{ flex-basis:86%; }
+}
+
+/* =========================
+   LOGO
+========================= */
 .logo-wrap{
   display:flex;
   justify-content:center;
-  margin-bottom:16px;
+  margin:8px 0 16px;
 }
 .logo{
   width:92px;height:92px;border-radius:50%;
@@ -159,6 +277,37 @@ h1{
 <div class="wrapper">
   <div class="card">
 
+    <!-- =========================
+         SLIDER 4 BANNER (ABOVE LOGO)
+         rename images:
+         banner-1.jpg, banner-2.jpg, banner-3.jpg, banner-4.jpg
+    ========================== -->
+    <section class="slider" id="bannerSlider">
+      <div class="viewport">
+        <div class="track" id="track">
+          <!-- 4 slides (will be cloned in JS for looping) -->
+          <div class="slide"><img src="banner-1.jpg" alt="Banner 1"></div>
+          <div class="slide"><img src="banner-2.jpg" alt="Banner 2"></div>
+          <div class="slide"><img src="banner-3.jpg" alt="Banner 3"></div>
+          <div class="slide"><img src="banner-4.jpg" alt="Banner 4"></div>
+        </div>
+      </div>
+
+      <div class="arrow left" id="prev" aria-label="Sebelumnya">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="arrow right" id="next" aria-label="Berikutnya">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="dots" id="dots" aria-label="Navigasi banner"></div>
+    </section>
+
+    <!-- LOGO / FOTO PROFIL -->
     <div class="logo-wrap">
       <div class="logo">
         <!-- GANTI FOTO PROFIL DI SINI -->
@@ -168,7 +317,7 @@ h1{
 
     <div class="header">
       <div class="badge">🚀 Layanan Aktif 24/7</div>
-      <h1>Suntik Sosmed — Fast, Aman, Bergaransi</h1>
+      <h1>Suntik Sosmed — Aman, Cepat, Bergaransi</h1>
       <p class="sub">
         Naikin <b>Followers</b>, <b>Likes</b>, <b>Views</b>, <b>Reactions</b>,
         sampai <b>Watch Time</b> untuk <b>TikTok, Instagram, Telegram, Twitter, & YouTube</b>.
@@ -176,9 +325,7 @@ h1{
       </p>
     </div>
 
-    <!-- BENEFIT VERTIKAL -->
     <div class="benefit-stack">
-
       <div class="benefit">
         <h3>👑 Naik Kelas & Gengsi Akun</h3>
         <p>
@@ -190,8 +337,7 @@ h1{
       <div class="benefit">
         <h3>🔥 Social Proof = Trust Cepat</h3>
         <p>
-          Konten yang rame bikin audiens mikir:
-          <i>“Oh ini legit.”</i>
+          Konten yang rame bikin audiens mikir: <i>“Oh ini legit.”</i>
           Secara psikologi, orang jauh lebih gampang ikut like, komen,
           dan follow kalau sudah ada interaksi sebelumnya.
         </p>
@@ -205,13 +351,11 @@ h1{
           atau ngejar exposure lebih luas.
         </p>
       </div>
-
     </div>
 
-    <!-- CTA -->
     <a class="cta"
        href="https://chat.whatsapp.com/DQ2PsowpGt5FxhQDAS2sAz?mode=r_t"
-       target="_blank">
+       target="_blank" rel="noopener">
       Order Sekarang via Grup WhatsApp
       <span>Join grup → pilih layanan → langsung gas</span>
     </a>
@@ -222,5 +366,208 @@ h1{
 
   </div>
 </div>
+
+<script>
+(() => {
+  const root = document.getElementById("bannerSlider");
+  const track = document.getElementById("track");
+  const slides = Array.from(track.children);
+  const prevBtn = document.getElementById("prev");
+  const nextBtn = document.getElementById("next");
+  const dotsWrap = document.getElementById("dots");
+
+  const originalCount = slides.length; // 4
+  let index = 0;                       // active original index
+  let slideWidth = 0;
+  let gap = 14;
+  let isDragging = false;
+  let startX = 0;
+  let currentX = 0;
+  let baseTranslate = 0;
+  let raf = null;
+
+  // --- clone for looping: [last] + originals + [first]
+  const firstClone = slides[0].cloneNode(true);
+  const lastClone  = slides[originalCount - 1].cloneNode(true);
+  track.insertBefore(lastClone, track.firstChild);
+  track.appendChild(firstClone);
+
+  // rebuild slides list after cloning
+  const allSlides = Array.from(track.children);
+
+  // dots
+  for (let i = 0; i < originalCount; i++) {
+    const d = document.createElement("button");
+    d.className = "dot";
+    d.type = "button";
+    d.addEventListener("click", () => goTo(i));
+    dotsWrap.appendChild(d);
+  }
+  const dots = Array.from(dotsWrap.children);
+
+  function readGap() {
+    const cs = getComputedStyle(track);
+    const g = parseFloat(cs.gap || "14");
+    return Number.isFinite(g) ? g : 14;
+  }
+
+  function measure() {
+    gap = readGap();
+    // slide width based on first real slide element
+    const s = allSlides[1]; // first original after lastClone
+    slideWidth = s.getBoundingClientRect().width;
+  }
+
+  function setActiveClasses() {
+    allSlides.forEach(s => s.classList.remove("is-active"));
+    // active slide is (index + 1) because of leading lastClone
+    const active = allSlides[index + 1];
+    if (active) active.classList.add("is-active");
+
+    dots.forEach(d => d.classList.remove("is-active"));
+    if (dots[index]) dots[index].classList.add("is-active");
+  }
+
+  function translateTo(idx, withAnim = true) {
+    // position based on idx of originals, offset +1 because clone at start
+    const offsetIndex = idx + 1;
+    baseTranslate = -offsetIndex * (slideWidth + gap);
+    track.style.transition = withAnim
+      ? "transform 650ms cubic-bezier(.22,.75,.2,1)"
+      : "none";
+    track.style.transform = `translate3d(${baseTranslate}px,0,0)`;
+    setActiveClasses();
+  }
+
+  function goTo(idx) {
+    index = (idx + originalCount) % originalCount;
+    translateTo(index, true);
+  }
+
+  function next() { goTo(index + 1); }
+  function prev() { goTo(index - 1); }
+
+  // loop fix when reaching clones
+  track.addEventListener("transitionend", () => {
+    // if moved to right clone (after last original)
+    if (index === originalCount) {
+      index = 0;
+      translateTo(index, false);
+    }
+    // if moved to left clone (before first original)
+    if (index === -1) {
+      index = originalCount - 1;
+      translateTo(index, false);
+    }
+  });
+
+  // because goTo wraps, we’ll never really be -1 or originalCount,
+  // but drag can land there; keep safeguard:
+  function normalizeIndex() {
+    if (index < 0) index = originalCount - 1;
+    if (index >= originalCount) index = 0;
+  }
+
+  // drag/swipe
+  function pointerDown(e) {
+    isDragging = true;
+    startX = (e.touches ? e.touches[0].clientX : e.clientX);
+    currentX = startX;
+    track.style.transition = "none";
+    cancelAnimationFrame(raf);
+  }
+
+  function pointerMove(e) {
+    if (!isDragging) return;
+    currentX = (e.touches ? e.touches[0].clientX : e.clientX);
+    const dx = currentX - startX;
+
+    raf = requestAnimationFrame(() => {
+      track.style.transform = `translate3d(${baseTranslate + dx}px,0,0)`;
+    });
+  }
+
+  function pointerUp() {
+    if (!isDragging) return;
+    isDragging = false;
+
+    const dx = currentX - startX;
+    const threshold = Math.min(90, slideWidth * 0.18);
+
+    if (dx < -threshold) index += 1;
+    else if (dx > threshold) index -= 1;
+
+    // allow temporary out-of-range to hit clones smoothly
+    translateTo(index, true);
+
+    // after transition, jump back if needed:
+    setTimeout(() => {
+      if (index < 0) { index = originalCount - 1; translateTo(index, false); }
+      if (index >= originalCount) { index = 0; translateTo(index, false); }
+      normalizeIndex();
+    }, 720);
+  }
+
+  // autoplay smooth
+  let timer = null;
+  const AUTOPLAY_MS = 3200;
+
+  function startAuto() {
+    stopAuto();
+    timer = setInterval(() => next(), AUTOPLAY_MS);
+  }
+  function stopAuto() {
+    if (timer) clearInterval(timer);
+    timer = null;
+  }
+
+  // events
+  prevBtn.addEventListener("click", () => { prev(); startAuto(); });
+  nextBtn.addEventListener("click", () => { next(); startAuto(); });
+
+  // pointer events
+  const viewport = root.querySelector(".viewport");
+  viewport.addEventListener("mousedown", pointerDown);
+  window.addEventListener("mousemove", pointerMove);
+  window.addEventListener("mouseup", pointerUp);
+
+  viewport.addEventListener("touchstart", pointerDown, {passive:true});
+  viewport.addEventListener("touchmove", pointerMove, {passive:true});
+  viewport.addEventListener("touchend", pointerUp);
+
+  // pause on hover
+  root.addEventListener("mouseenter", stopAuto);
+  root.addEventListener("mouseleave", startAuto);
+
+  // init
+  function init() {
+    measure();
+    // start at first original (index=0) => translate to offsetIndex=1
+    translateTo(index, false);
+    setTimeout(() => translateTo(index, true), 60);
+    startAuto();
+  }
+
+  window.addEventListener("resize", () => {
+    measure();
+    translateTo(index, false);
+  });
+
+  // wait images load (more stable sizing)
+  let loaded = 0;
+  allSlides.forEach(s => {
+    const img = s.querySelector("img");
+    if (!img) return;
+    if (img.complete) loaded++;
+    else img.addEventListener("load", () => {
+      loaded++;
+      if (loaded >= allSlides.length - 2) init();
+    });
+  });
+  // fallback
+  setTimeout(init, 250);
+})();
+</script>
+
 </body>
 </html>
