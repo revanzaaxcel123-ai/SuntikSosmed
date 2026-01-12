@@ -1,408 +1,226 @@
 <!doctype html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
-  <title>Suntik Sosmed — VanzShop.com</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Suntik Sosmed by VanzShop — Layanan aktif 24/7, fast respon, aman & bergaransi.">
-  <link rel="icon" href="logo.png">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<title>Suntik Sosmed — VanzShop.com</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <style>
-    :root {
-      --bg:#050509;
-      --card:#111118;
-      --accent:#f7d46a;
-      --accent-strong:#ffdf7a;
-      --accent-soft:rgba(247,212,106,0.22);
-      --text:#f5f5f5;
-      --text-muted:#b3b3c2;
-      --border-soft:rgba(255,255,255,0.06);
-      --radius-card:32px;
-      --radius-btn:18px;
-      --shadow-soft:0 28px 80px rgba(0,0,0,0.9);
-    }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    *,*::before,*::after{box-sizing:border-box;}
-    html,body{margin:0;padding:0;}
-    body{
-      min-height:100vh;
-      font-family:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      display:flex;
-      align-items:flex-start;
-      justify-content:center;
-      overflow-x:hidden;
-    }
+<style>
+:root{
+  --bg:#050509;
+  --card:#111118;
+  --accent:#f7d46a;
+  --accent-soft:rgba(247,212,106,.18);
+  --text:#f5f5f5;
+  --muted:#b3b3c2;
+  --border:rgba(255,255,255,.06);
+  --radius:28px;
+}
 
-    /* ===== Background style (KEEP) ===== */
-    .page-bg{
-      position:fixed;
-      inset:0;
-      z-index:0;
-      pointer-events:none;
-      background-image:
-        linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
-      background-size: 64px 64px;
-      opacity:.55;
-    }
-    .warm{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:0;
-      background:
-        radial-gradient(circle at 78% 40%,
-          rgba(247,212,106,0.18) 0%,
-          rgba(247,212,106,0.08) 18%,
-          rgba(0,0,0,0) 55%);
-      mix-blend-mode:screen;
-      opacity:.9;
-    }
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:Inter,system-ui;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  justify-content:center;
+  min-height:100vh;
+}
 
-    .orb{
-      position:fixed;
-      border-radius:999px;
-      background:radial-gradient(circle at 30% 20%, rgba(255,255,255,0.09), transparent 70%);
-      opacity:.6;
-      animation:floatOrb 24s ease-in-out infinite alternate;
-      pointer-events:none;
-      z-index:0;
-    }
-    .orb-1{width:220px;height:220px;left:7%;top:62%;animation-delay:-4s;}
-    .orb-2{width:170px;height:170px;left:28%;top:30%;animation-delay:-12s;opacity:.52;}
-    .orb-3{width:280px;height:280px;right:12%;top:18%;animation-delay:-18s;opacity:.58;}
-    .orb-4{width:260px;height:260px;right:10%;bottom:-60px;animation-delay:-10s;opacity:.54;}
+/* background grid */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(to right,rgba(255,255,255,.04) 1px,transparent 1px),
+    linear-gradient(to bottom,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:64px 64px;
+  opacity:.5;
+  pointer-events:none;
+}
 
-    @keyframes floatOrb{
-      0%  {transform:translate3d(0,0,0) scale(1);opacity:.45;}
-      40% {transform:translate3d(18px,-26px,0) scale(1.05);opacity:.8;}
-      100%{transform:translate3d(-16px,-10px,0) scale(1.02);opacity:.55;}
-    }
+.wrapper{
+  width:100%;
+  max-width:560px;
+  padding:36px 18px 70px;
+  position:relative;
+}
 
-    /* ===== Layout ===== */
-    .shell{
-      width:100%;
-      max-width:560px;
-      padding:34px 18px 70px;
-      position:relative;
-      z-index:1;
-    }
-    .card{
-      background:
-        radial-gradient(circle at top, rgba(255,255,255,0.03), transparent 55%),
-        var(--card);
-      border-radius:var(--radius-card);
-      box-shadow:var(--shadow-soft);
-      padding:30px 24px 26px;
-      border:1px solid rgba(255,255,255,0.04);
-    }
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:28px 22px 26px;
+  border:1px solid var(--border);
+  box-shadow:0 30px 80px rgba(0,0,0,.9);
+}
 
-    /* Top */
-    .logo-wrap{
-      display:flex;
-      justify-content:center;
-      margin-bottom:14px;
-    }
-    .logo-circle{
-      width:92px;height:92px;border-radius:999px;overflow:hidden;
-      background:radial-gradient(circle at 30% 20%, #fff7c8 0%, #ffe083 35%, #d4a937 70%, #7f6518 100%);
-      border:2px solid rgba(255,220,140,0.6);
-      box-shadow:
-        0 15px 40px rgba(0,0,0,0.85),
-        inset 0 6px 10px rgba(255,255,255,0.22),
-        inset 0 -6px 10px rgba(0,0,0,0.45);
-      display:flex;align-items:center;justify-content:center;
-    }
-    .logo-circle img{
-      width:97%;
-      height:97%;
-      object-fit:cover; /* biar foto profil selalu full, gak gepeng */
-      border-radius:50%;
-      /* kalau posisi wajah/logo kepotong, atur ini:
-         object-position: center;  (atau: center top / 50% 30%) */
-    }
+/* logo */
+.logo-wrap{
+  display:flex;
+  justify-content:center;
+  margin-bottom:16px;
+}
+.logo{
+  width:92px;height:92px;border-radius:50%;
+  background:radial-gradient(circle at 30% 20%,#fff7c8,#f7d46a,#9e7c1d);
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid rgba(247,212,106,.6);
+}
+.logo img{
+  width:90%;height:90%;object-fit:contain;border-radius:50%;
+}
 
-    .headline-wrap{text-align:center;margin-bottom:14px;}
-    .badge{
-      display:inline-flex;align-items:center;gap:6px;
-      padding:4px 10px;border-radius:999px;
-      background:var(--accent-soft);color:var(--accent-strong);
-      font-size:.78rem;
-    }
-    .headline-wrap h1{
-      margin:8px 0 6px;
-      font-size:1.55rem;
-      color:var(--accent-strong);
-      line-height:1.15;
-    }
-    .sub{
-      margin:0;
-      font-size:.92rem;
-      color:var(--text-muted);
-      line-height:1.6;
-    }
+/* header */
+.header{text-align:center;margin-bottom:20px}
+.badge{
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:999px;
+  background:var(--accent-soft);
+  color:var(--accent);
+  font-size:.75rem;
+}
+h1{
+  margin:10px 0 8px;
+  font-size:1.45rem;
+  line-height:1.2;
+  color:var(--accent);
+}
+.sub{
+  font-size:.92rem;
+  color:var(--muted);
+  line-height:1.6;
+}
 
-    /* highlight info */
-    .info{
-      margin-top:16px;
-      padding:16px 14px;
-      border-radius:22px;
-      background:rgba(17,17,24,0.55);
-      border:1px solid rgba(255,255,255,0.06);
-      backdrop-filter: blur(6px);
-    }
-    .info-title{
-      font-size:.78rem;
-      letter-spacing:.22em;
-      opacity:.65;
-      text-transform:uppercase;
-      margin-bottom:12px;
-    }
+/* benefit vertical */
+.benefit-stack{
+  margin-top:22px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
 
-    .bullets{margin:0;padding:0;list-style:none;display:grid;gap:10px;}
-    .bullet{
-      display:flex;align-items:flex-start;gap:10px;
-      color:rgba(255,255,255,0.82);
-      font-size:.92rem;
-      line-height:1.45;
-    }
-    .dot{
-      width:9px;height:9px;border-radius:999px;
-      background:rgba(247,212,106,0.95);
-      box-shadow:0 0 10px rgba(247,212,106,0.35);
-      margin-top:6px;flex:0 0 auto;
-    }
+.benefit{
+  padding:16px 16px;
+  border-radius:20px;
+  background:rgba(17,17,24,.6);
+  border:1px solid var(--border);
+}
 
-    /* ===== 3 BENEFIT BOXES ===== */
-    .benefit-grid{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:10px;
-    }
-    .benefit-card{
-      padding:12px 12px 13px;
-      border-radius:18px;
-      background:rgba(0,0,0,0.22);
-      border:1px solid rgba(255,255,255,0.08);
-      box-shadow:0 10px 28px rgba(0,0,0,0.55);
-    }
-    .benefit-top{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom:8px;
-    }
-    .benefit-ico{
-      width:34px;height:34px;border-radius:999px;
-      display:flex;align-items:center;justify-content:center;
-      background:rgba(247,212,106,0.12);
-      border:1px solid rgba(247,212,106,0.28);
-      color:var(--accent-strong);
-      flex:0 0 auto;
-    }
-    .benefit-ico svg{width:18px;height:18px;display:block}
-    .benefit-title{
-      font-size:.92rem;
-      font-weight:600;
-      letter-spacing:.01em;
-      color:rgba(255,255,255,0.92);
-      line-height:1.15;
-    }
-    .benefit-desc{
-      margin:0;
-      font-size:.84rem;
-      color:rgba(255,255,255,0.72);
-      line-height:1.5;
-    }
+.benefit h3{
+  margin:0 0 6px;
+  font-size:1rem;
+  color:var(--accent);
+}
 
-    /* Buttons */
-    .link-btn{
-      width:100%;
-      border:none;outline:none;text-decoration:none;
-      display:flex;justify-content:flex-start;align-items:center;
-      padding:12px 16px;border-radius:var(--radius-btn);
-      cursor:pointer;background:#101018;border:1px solid var(--border-soft);
-      color:var(--text);
-      transition:transform .1s ease-out,box-shadow .12s ease-out,border-color .12s ease-out,background .12s ease-out;
-      margin-top:12px;
-    }
-    .link-btn:hover{
-      transform:translateY(-1px);
-      box-shadow:0 16px 38px rgba(0,0,0,0.9);
-      border-color:rgba(247,212,106,0.6);
-      background:linear-gradient(135deg,#181821,#1d1d25);
-    }
-    .link-btn-primary{
-      background:linear-gradient(135deg,#2b2412,#141419);
-      border-color:rgba(247,212,106,0.6);
-      box-shadow:0 12px 30px rgba(0,0,0,0.9);
-      animation:pulse 2.8s infinite ease-in-out;
-    }
-    .link-btn-primary:hover{background:linear-gradient(135deg,#3c3217,#171722);}
-    @keyframes pulse{
-      0%{box-shadow:0 0 0 rgba(247,212,106,0);}
-      50%{box-shadow:0 0 18px rgba(247,212,106,0.35);}
-      100%{box-shadow:0 0 0 rgba(247,212,106,0);}
-    }
+.benefit p{
+  margin:0;
+  font-size:.9rem;
+  line-height:1.55;
+  color:rgba(255,255,255,.82);
+}
 
-    .btn-content{display:inline-flex;align-items:center;gap:10px;}
-    .btn-icon{
-      width:32px;height:32px;border-radius:999px;
-      background:rgba(11,14,40,0.95);
-      display:flex;align-items:center;justify-content:center;
-      color:#ffffff;flex:0 0 auto;
-    }
-    .btn-icon svg{width:18px;height:18px;display:block;}
-    .btn-text{font-size:.96rem;font-weight:500;letter-spacing:.01em;}
-    .btn-pill{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:2px 8px;border-radius:999px;
-      background:rgba(0,0,0,0.4);
-      border:1px solid rgba(247,212,106,0.6);
-      font-size:.7rem;margin-left:6px;color:var(--accent-strong);
-      white-space:nowrap;
-    }
+/* CTA */
+.cta{
+  margin-top:22px;
+  display:block;
+  text-decoration:none;
+  padding:14px 16px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#2b2412,#141419);
+  border:1px solid rgba(247,212,106,.6);
+  color:#fff;
+  font-weight:600;
+  text-align:center;
+  box-shadow:0 16px 40px rgba(0,0,0,.9);
+}
+.cta span{
+  display:block;
+  font-size:.78rem;
+  margin-top:4px;
+  color:var(--accent);
+}
 
-    /* footer */
-    .footer-note{
-      margin-top:16px;
-      text-align:center;
-      font-size:.82rem;
-      color:var(--text-muted);
-      opacity:.92;
-    }
-
-    @media(max-width:520px){
-      .benefit-grid{grid-template-columns:1fr;}
-    }
-    @media(max-width:480px){
-      .headline-wrap h1{font-size:1.35rem;}
-      .btn-text{font-size:.9rem;}
-    }
-  </style>
+/* footer */
+.footer{
+  margin-top:18px;
+  text-align:center;
+  font-size:.8rem;
+  color:var(--muted);
+}
+</style>
 </head>
 
 <body>
-  <div class="page-bg"></div>
-  <div class="warm"></div>
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-  <div class="orb orb-4"></div>
+<div class="wrapper">
+  <div class="card">
 
-  <main class="shell">
-    <section class="card">
-      <!-- Logo tetap -->
-      <div class="logo-wrap">
-        <div class="logo-circle">
-          <img src="logo.png" alt="Logo VanzShop.com">
-        </div>
+    <div class="logo-wrap">
+      <div class="logo">
+        <!-- GANTI FOTO PROFIL DI SINI -->
+        <img src="logo.png" alt="VanzShop">
       </div>
+    </div>
 
-      <!-- Headline + copywriting -->
-      <div class="headline-wrap">
-        <div class="badge">🚀 Layanan aktif 24/7</div>
-        <h1>Suntik Sosmed — Fast, Aman, Bergaransi</h1>
-        <p class="sub">
-          Naikin <b>Followers</b>, <b>Likes</b>, <b>Views</b>, <b>Reels/Story Viewer</b>, <b>Comments</b>, sampai <b>Watch Time</b>
-          dengan proses yang jelas & cepat.
-          Cocok buat <b>personal brand</b>, <b>UMKM</b>, <b>konten kreator</b>, sampai <b>toko online</b>.
-          <br><br>
-          Support: <b>TikTok</b> • <b>Instagram</b> • <b>YouTube</b> • <b>Telegram</b> • <b>Twitter/X</b>
+    <div class="header">
+      <div class="badge">🚀 Layanan Aktif 24/7</div>
+      <h1>Suntik Sosmed — Fast, Aman, Bergaransi</h1>
+      <p class="sub">
+        Naikin <b>Followers</b>, <b>Likes</b>, <b>Views</b>, <b>Reactions</b>,
+        sampai <b>Watch Time</b> untuk <b>TikTok, Instagram, Telegram, Twitter, & YouTube</b>.
+        Cocok buat personal brand, UMKM, kreator, dan bisnis online.
+      </p>
+    </div>
+
+    <!-- BENEFIT VERTIKAL -->
+    <div class="benefit-stack">
+
+      <div class="benefit">
+        <h3>👑 Naik Kelas & Gengsi Akun</h3>
+        <p>
+          Akun dengan angka yang solid otomatis kelihatan lebih <b>niat, profesional, dan terpercaya</b>.
+          Orang lebih pede follow, nonton, dan engage karena secara visual terlihat “akun besar”.
         </p>
       </div>
 
-      <!-- Info -->
-      <section class="info">
-        <div class="info-title">Kenapa di VanzShop?</div>
-        <ul class="bullets">
-          <li class="bullet"><span class="dot"></span>Proses cepat & update jelas. Kalau ada kendala, dibantu sampai beres.</li>
-          <li class="bullet"><span class="dot"></span>Paket bisa disesuaiin: growth bertahap atau boost campaign.</li>
-          <li class="bullet"><span class="dot"></span>Support 24/7: konsultasi dulu boleh biar gak salah pilih.</li>
-        </ul>
-
-        <!-- 3 kotak benefit -->
-        <div class="benefit-grid">
-          <div class="benefit-card">
-            <div class="benefit-top">
-              <div class="benefit-ico">
-                <!-- crown -->
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M4 8l4 4 4-6 4 6 4-4v10H4V8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                  <path d="M4 18h16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <div class="benefit-title">Naik Kelas, Naik Trust</div>
-            </div>
-            <p class="benefit-desc">
-              Profil keliatan rapi & “niat”. Orang lebih pede follow, klik, dan percaya sama brand kamu.
-            </p>
-          </div>
-
-          <div class="benefit-card">
-            <div class="benefit-top">
-              <div class="benefit-ico">
-                <!-- spark -->
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 2l1.2 4.2L17.5 8l-4.3 1.8L12 14l-1.2-4.2L6.5 8l4.3-1.8L12 2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                  <path d="M5 14l.8 2.6L8.5 18l-2.7 1.4L5 22l-.8-2.6L1.5 18l2.7-1.4L5 14z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <div class="benefit-title">Social Proof Lebih Kuat</div>
-            </div>
-            <p class="benefit-desc">
-              Konten tampak rame. Biasanya orang lebih gampang ikut engage kalau udah ada “ramainya”.
-            </p>
-          </div>
-
-          <div class="benefit-card">
-            <div class="benefit-top">
-              <div class="benefit-ico">
-                <!-- rocket -->
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M14 3c3.2.7 5.7 3.2 6.4 6.4-3.4 1.4-6.4 3.7-8.6 6.6l-2.5.7.7-2.5c2.9-2.2 5.2-5.2 6.6-8.6Z"
-                        fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                  <path d="M9.2 14.8l-3.2 3.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                  <path d="M6.6 17.4l-.6 2.6 2.6-.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                  <circle cx="15.5" cy="8.5" r="1.4" fill="currentColor"/>
-                </svg>
-              </div>
-              <div class="benefit-title">Dorong Momentum Konten</div>
-            </div>
-            <p class="benefit-desc">
-              Engagement awal yang bagus bikin konten lebih “meyakinkan” buat audiens & campaign kamu.
-            </p>
-          </div>
-        </div>
-
-        <!-- CTA bawah -->
-        <a class="link-btn link-btn-primary"
-           href="https://chat.whatsapp.com/DQ2PsowpGt5FxhQDAS2sAz?mode=r_t"
-           target="_blank" rel="noopener">
-          <span class="btn-content">
-            <span class="btn-icon">
-              <!-- whatsapp -->
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 4a7 7 0 0 0-6.06 10.5L5 20l3.7-1.88A7 7 0 1 0 12 4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                <path d="M10.6 9.1l.4 1.3a1.2 1.2 0 0 1-.2 1l-.3.4a3.8 3.8 0 0 0 1.9 1.9l.4-.3a1.2 1.2 0 0 1 1-.2l1.3.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-            <span class="btn-text">
-              Order Sekarang (via Grup WhatsApp)
-              <span class="btn-pill">Join & Order</span>
-            </span>
-          </span>
-        </a>
-      </section>
-
-      <div class="footer-note">
-        © 2025 VanzShop.com · 🔒 Aman · ⚡ Cepat · 🛡️ Bergaransi
+      <div class="benefit">
+        <h3>🔥 Social Proof = Trust Cepat</h3>
+        <p>
+          Konten yang rame bikin audiens mikir:
+          <i>“Oh ini legit.”</i>
+          Secara psikologi, orang jauh lebih gampang ikut like, komen,
+          dan follow kalau sudah ada interaksi sebelumnya.
+        </p>
       </div>
-    </section>
-  </main>
+
+      <div class="benefit">
+        <h3>🚀 Dorong Algoritma & Momentum</h3>
+        <p>
+          Engagement awal bantu konten lebih “meyakinkan” di mata algoritma.
+          Ideal buat <b>launch konten baru</b>, <b>boost campaign</b>,
+          atau ngejar exposure lebih luas.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <a class="cta"
+       href="https://chat.whatsapp.com/DQ2PsowpGt5FxhQDAS2sAz?mode=r_t"
+       target="_blank">
+      Order Sekarang via Grup WhatsApp
+      <span>Join grup → pilih layanan → langsung gas</span>
+    </a>
+
+    <div class="footer">
+      © 2025 VanzShop.com · 🔒 Aman · ⚡ Cepat · 🛡️ Bergaransi
+    </div>
+
+  </div>
+</div>
 </body>
 </html>
