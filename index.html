@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>Suntik Sosmed — VanzShop.com</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Suntik Sosmed by VanzShop — Layanan aktif 24/7, fast respon, aman & bergaransi. Harga transparan + markup 20% dari BuzzerPanel.">
+  <meta name="description" content="Suntik Sosmed by VanzShop — Layanan aktif 24/7, fast respon, aman & bergaransi.">
   <link rel="icon" href="logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -116,7 +116,14 @@
         inset 0 -6px 10px rgba(0,0,0,0.45);
       display:flex;align-items:center;justify-content:center;
     }
-    .logo-circle img{width:97%;height:97%;object-fit:contain;border-radius:50%;}
+    .logo-circle img{
+      width:97%;
+      height:97%;
+      object-fit:cover; /* biar foto profil selalu full, gak gepeng */
+      border-radius:50%;
+      /* kalau posisi wajah/logo kepotong, atur ini:
+         object-position: center;  (atau: center top / 50% 30%) */
+    }
 
     .headline-wrap{text-align:center;margin-bottom:14px;}
     .badge{
@@ -154,6 +161,7 @@
       text-transform:uppercase;
       margin-bottom:12px;
     }
+
     .bullets{margin:0;padding:0;list-style:none;display:grid;gap:10px;}
     .bullet{
       display:flex;align-items:flex-start;gap:10px;
@@ -167,20 +175,97 @@
       box-shadow:0 0 10px rgba(247,212,106,0.35);
       margin-top:6px;flex:0 0 auto;
     }
-    .muted{color:var(--text-muted);}
 
-    /* price note */
-    .price-note{
+    /* ===== 3 BENEFIT BOXES ===== */
+    .benefit-grid{
       margin-top:14px;
-      padding:12px 14px;
-      border-radius:18px;
-      border:1px dashed rgba(247,212,106,0.35);
-      background:rgba(0,0,0,0.25);
-      color:rgba(255,255,255,0.78);
-      font-size:.88rem;
-      line-height:1.55;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
     }
-    .price-note b{color:var(--accent-strong);}
+    .benefit-card{
+      padding:12px 12px 13px;
+      border-radius:18px;
+      background:rgba(0,0,0,0.22);
+      border:1px solid rgba(255,255,255,0.08);
+      box-shadow:0 10px 28px rgba(0,0,0,0.55);
+    }
+    .benefit-top{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:8px;
+    }
+    .benefit-ico{
+      width:34px;height:34px;border-radius:999px;
+      display:flex;align-items:center;justify-content:center;
+      background:rgba(247,212,106,0.12);
+      border:1px solid rgba(247,212,106,0.28);
+      color:var(--accent-strong);
+      flex:0 0 auto;
+    }
+    .benefit-ico svg{width:18px;height:18px;display:block}
+    .benefit-title{
+      font-size:.92rem;
+      font-weight:600;
+      letter-spacing:.01em;
+      color:rgba(255,255,255,0.92);
+      line-height:1.15;
+    }
+    .benefit-desc{
+      margin:0;
+      font-size:.84rem;
+      color:rgba(255,255,255,0.72);
+      line-height:1.5;
+    }
+
+    /* Buttons */
+    .link-btn{
+      width:100%;
+      border:none;outline:none;text-decoration:none;
+      display:flex;justify-content:flex-start;align-items:center;
+      padding:12px 16px;border-radius:var(--radius-btn);
+      cursor:pointer;background:#101018;border:1px solid var(--border-soft);
+      color:var(--text);
+      transition:transform .1s ease-out,box-shadow .12s ease-out,border-color .12s ease-out,background .12s ease-out;
+      margin-top:12px;
+    }
+    .link-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 16px 38px rgba(0,0,0,0.9);
+      border-color:rgba(247,212,106,0.6);
+      background:linear-gradient(135deg,#181821,#1d1d25);
+    }
+    .link-btn-primary{
+      background:linear-gradient(135deg,#2b2412,#141419);
+      border-color:rgba(247,212,106,0.6);
+      box-shadow:0 12px 30px rgba(0,0,0,0.9);
+      animation:pulse 2.8s infinite ease-in-out;
+    }
+    .link-btn-primary:hover{background:linear-gradient(135deg,#3c3217,#171722);}
+    @keyframes pulse{
+      0%{box-shadow:0 0 0 rgba(247,212,106,0);}
+      50%{box-shadow:0 0 18px rgba(247,212,106,0.35);}
+      100%{box-shadow:0 0 0 rgba(247,212,106,0);}
+    }
+
+    .btn-content{display:inline-flex;align-items:center;gap:10px;}
+    .btn-icon{
+      width:32px;height:32px;border-radius:999px;
+      background:rgba(11,14,40,0.95);
+      display:flex;align-items:center;justify-content:center;
+      color:#ffffff;flex:0 0 auto;
+    }
+    .btn-icon svg{width:18px;height:18px;display:block;}
+    .btn-text{font-size:.96rem;font-weight:500;letter-spacing:.01em;}
+    .btn-pill{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:2px 8px;border-radius:999px;
+      background:rgba(0,0,0,0.4);
+      border:1px solid rgba(247,212,106,0.6);
+      font-size:.7rem;margin-left:6px;color:var(--accent-strong);
+      white-space:nowrap;
+    }
 
     /* footer */
     .footer-note{
@@ -191,8 +276,12 @@
       opacity:.92;
     }
 
+    @media(max-width:520px){
+      .benefit-grid{grid-template-columns:1fr;}
+    }
     @media(max-width:480px){
       .headline-wrap h1{font-size:1.35rem;}
+      .btn-text{font-size:.9rem;}
     }
   </style>
 </head>
@@ -219,28 +308,95 @@
         <div class="badge">🚀 Layanan aktif 24/7</div>
         <h1>Suntik Sosmed — Fast, Aman, Bergaransi</h1>
         <p class="sub">
-          Naikin <b>Followers</b>, <b>Likes</b>, <b>Views</b>, <b>Reels/Story Viewer</b>, <b>Comments</b>,
-          sampai <b>Watch Time</b> dengan proses yang jelas & cepat.
-          Cocok buat personal brand, UMKM, konten kreator, sampai toko online.
+          Naikin <b>Followers</b>, <b>Likes</b>, <b>Views</b>, <b>Reels/Story Viewer</b>, <b>Comments</b>, sampai <b>Watch Time</b>
+          dengan proses yang jelas & cepat.
+          Cocok buat <b>personal brand</b>, <b>UMKM</b>, <b>konten kreator</b>, sampai <b>toko online</b>.
           <br><br>
-          Support platform: <b>TikTok</b>, <b>Instagram</b>, <b>YouTube</b>, <b>Telegram</b>, <b>Twitter/X</b>.
+          Support: <b>TikTok</b> • <b>Instagram</b> • <b>YouTube</b> • <b>Telegram</b> • <b>Twitter/X</b>
         </p>
       </div>
 
-      <!-- Info saja (tanpa tombol) -->
+      <!-- Info -->
       <section class="info">
         <div class="info-title">Kenapa di VanzShop?</div>
         <ul class="bullets">
           <li class="bullet"><span class="dot"></span>Proses cepat & update jelas. Kalau ada kendala, dibantu sampai beres.</li>
-          <li class="bullet"><span class="dot"></span>Paket bisa disesuaiin: growth natural bertahap atau boost campaign.</li>
-          <li class="bullet"><span class="dot"></span>Aman & bergaransi sesuai ketentuan layanan (bukan lepas tangan).</li>
+          <li class="bullet"><span class="dot"></span>Paket bisa disesuaiin: growth bertahap atau boost campaign.</li>
           <li class="bullet"><span class="dot"></span>Support 24/7: konsultasi dulu boleh biar gak salah pilih.</li>
         </ul>
 
-        <div class="price-note">
-          <b>Harga:</b> transparan & konsisten — mengacu ke price list internal + <b>markup 20%</b>.
-          <span class="muted">Tujuannya untuk operasional, monitoring, dan fast support.</span>
+        <!-- 3 kotak benefit -->
+        <div class="benefit-grid">
+          <div class="benefit-card">
+            <div class="benefit-top">
+              <div class="benefit-ico">
+                <!-- crown -->
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 8l4 4 4-6 4 6 4-4v10H4V8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                  <path d="M4 18h16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="benefit-title">Naik Kelas, Naik Trust</div>
+            </div>
+            <p class="benefit-desc">
+              Profil keliatan rapi & “niat”. Orang lebih pede follow, klik, dan percaya sama brand kamu.
+            </p>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-top">
+              <div class="benefit-ico">
+                <!-- spark -->
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 2l1.2 4.2L17.5 8l-4.3 1.8L12 14l-1.2-4.2L6.5 8l4.3-1.8L12 2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                  <path d="M5 14l.8 2.6L8.5 18l-2.7 1.4L5 22l-.8-2.6L1.5 18l2.7-1.4L5 14z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="benefit-title">Social Proof Lebih Kuat</div>
+            </div>
+            <p class="benefit-desc">
+              Konten tampak rame. Biasanya orang lebih gampang ikut engage kalau udah ada “ramainya”.
+            </p>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-top">
+              <div class="benefit-ico">
+                <!-- rocket -->
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M14 3c3.2.7 5.7 3.2 6.4 6.4-3.4 1.4-6.4 3.7-8.6 6.6l-2.5.7.7-2.5c2.9-2.2 5.2-5.2 6.6-8.6Z"
+                        fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                  <path d="M9.2 14.8l-3.2 3.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                  <path d="M6.6 17.4l-.6 2.6 2.6-.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                  <circle cx="15.5" cy="8.5" r="1.4" fill="currentColor"/>
+                </svg>
+              </div>
+              <div class="benefit-title">Dorong Momentum Konten</div>
+            </div>
+            <p class="benefit-desc">
+              Engagement awal yang bagus bikin konten lebih “meyakinkan” buat audiens & campaign kamu.
+            </p>
+          </div>
         </div>
+
+        <!-- CTA bawah -->
+        <a class="link-btn link-btn-primary"
+           href="https://chat.whatsapp.com/DQ2PsowpGt5FxhQDAS2sAz?mode=r_t"
+           target="_blank" rel="noopener">
+          <span class="btn-content">
+            <span class="btn-icon">
+              <!-- whatsapp -->
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 4a7 7 0 0 0-6.06 10.5L5 20l3.7-1.88A7 7 0 1 0 12 4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M10.6 9.1l.4 1.3a1.2 1.2 0 0 1-.2 1l-.3.4a3.8 3.8 0 0 0 1.9 1.9l.4-.3a1.2 1.2 0 0 1 1-.2l1.3.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="btn-text">
+              Order Sekarang (via Grup WhatsApp)
+              <span class="btn-pill">Join & Order</span>
+            </span>
+          </span>
+        </a>
       </section>
 
       <div class="footer-note">
